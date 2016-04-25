@@ -17,13 +17,14 @@ namespace Scheduler
         
         public ScheduleCompute()
         {
-            blocklist = new Block[3] { new Block("lecture"), new Block("disc"), new Block("lab") };
+            blocklist = new Block[3];
             calender = new Calender();
             blockcount = 0;
             howmanyclasses = 0;
         }
-
-        public void findSchedule() //Schedules one block per method call
+        
+        //Schedules one block per method call
+        public void findSchedule()
         {
             ClassList[] classlistarr = blocklist[blockcount].getClassObjects(); //array of values of ClassLists
             int numofclasses = blocklist[blockcount].getNumOfClasses(); //Come back--see if you really need this
@@ -83,7 +84,21 @@ namespace Scheduler
             }
         }
 
-
+        public void addBlock(Block blockobj)
+        {
+            if (blockobj.getBlockType() == "lecture")
+            {
+                blocklist[0] = blockobj;
+            }
+            else if (blockobj.getBlockType() == "lab")
+            {
+                blocklist[1] = blockobj;
+            }
+            else if (blockobj.getBlockType() == "disc")
+            {
+                blocklist[2] = blockobj;
+            }
+        }
 
 
         //WHENEVER we add a class

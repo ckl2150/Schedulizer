@@ -46,6 +46,11 @@ namespace Scheduler
         //    return keys;
         //}
 
+        public string getBlockType()
+        {
+            return type;
+        }
+        
         public ClassList[] getClassObjects()
         {
             ClassList[] values = courses.Values.ToArray();
@@ -53,6 +58,7 @@ namespace Scheduler
         }
 
         //Retrieves number of unique classes in this block to the caller
+        //Might not need this function anymore...
         public int getNumOfClasses()
         {
             return numofclasses;
