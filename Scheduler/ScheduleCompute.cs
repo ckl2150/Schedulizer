@@ -10,7 +10,7 @@ namespace Scheduler
     class ScheduleCompute
     {
         private ArrayList courselist;
-        private Calender() calender;
+        private Calender calender;
         
         public ScheduleCompute()
         {

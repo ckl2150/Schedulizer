@@ -6,24 +6,22 @@ namespace Scheduler
     {
         static void Main (string[] args)
         {
+            Calender calender = new Calender();
             //Simulate retrieval of a class instance
             Console.WriteLine("This tester creates a Block instance, and attempts to add different classes via the addNewClass() method");
             Block lectures = new Block("lecture");
-            lectures.addNewClass("Matlab", "Lecture", 12, 14, 127, "Attaway", "MW", "PHO","103");
-            lectures.addNewClass("Matlab", "Lecture", 2, 4, 127, "Attaway", "MW", "PHO", "103");
-            lectures.addNewClass("Logic", "Lecture", 2, 4, 311, "Attaway", "MW", "PHO", "210");
-            lectures.addNewClass("Discrete", "Lecture", 10, 12, 135, "Hoopla", "TR", "MTH", "203");
+            lectures.addNewClass("Matlab", "Lecture", 12, 14, 127, "Attaway", "Mon,Wed", "PHO","103");
+            lectures.addNewClass("Matlab", "Lecture", 14, 16, 127, "Attaway", "Mon,Wed", "PHO", "103");
+            lectures.addNewClass("Logic", "Lecture", 14, 16, 311, "Attaway", "Mon,Wed", "PHO", "210");
+            lectures.addNewClass("Discrete", "Lecture", 8, 10, 135, "Hoopla", "Tue,Thu", "MTH", "203");
             string[] arr = lectures.getCourseNames();
             foreach (string course in arr)
             {
-                Console.Write(course + ": Times are ");
-                int[] start = lectures.getTimes(course, "start");
-                foreach (int time in start)
-                {
-                    Console.Write(time + ", ");
-                }
-                Console.WriteLine();
+                Console.WriteLine(course + ": Times are ");
+                int[] times = lectures.getTime(course);
+                calender.addTimeSlot(times[0], times[1], lectures.getDays(course));
             }
+            calender.display();
         }
     }
 }

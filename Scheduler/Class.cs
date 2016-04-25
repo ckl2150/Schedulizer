@@ -10,8 +10,7 @@ namespace Scheduler
     {
         private string className;
         private string type;
-        private int startTime;
-        private int endTime;
+        private int[] time;
         private int code;
         private string prof;
         private string days;
@@ -28,8 +27,7 @@ namespace Scheduler
         {
             className = name;
             type = classtype;
-            startTime = start;
-            endTime = end;
+            time = new int[2] {start, end};
             code = ccode;
             prof = profname;
             days = schedday;
@@ -37,14 +35,14 @@ namespace Scheduler
             conflict = false;
         }
 
-        public int getStart()
+        public int[] getTime()
         {
-            return startTime;
+            return time;
         }
 
-        public int getEnd()
+        public string getDays()
         {
-            return endTime;
+            return days;
         }
 
         public bool getConflict()

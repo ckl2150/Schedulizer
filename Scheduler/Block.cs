@@ -9,16 +9,14 @@ namespace Scheduler
     public class Block
     {
         //Instance variables
-        private int coursecounter;
         private string type;
-        private Dictionary<string, List<Class>> courses;
+        private Dictionary<string, ClassList> courses;
 
         //Constructor takes a type as a parameter; this specifies whether the objects within are of type lecture, discussion, or lab
         public Block(string coursetype)
         {
-            coursecounter = 1; //NEEDED???
             type = coursetype;
-            courses = new Dictionary<string, List<Class>>();
+            courses = new Dictionary<string, ClassList>();
         }
 
         //Method which adds new class to dictionary. Makes new key/value pairing if it does not already exist, and adds the class to the existing list.
@@ -30,7 +28,7 @@ namespace Scheduler
             }
             else
             {
-                courses.Add(name, new List<Class>());
+                courses.Add(name, new ClassList());
                 courses[name].Add(new Class(name, classtype, start, end, ccode, profname, schedday, classroom, roomno));
             }
         }
@@ -43,21 +41,36 @@ namespace Scheduler
         }
 
         //Returns either the start or end times of a class as an integer array, given the proper string modifier
-        public int[] getTimes(string name, string modifier)
+        public int[] getTime(string name)
         {
-            int[] classTimes = new int[courses[name].Count()];
-            for (int i = 0; i < courses[name].Count(); i++)
+            //int[] classTime = 
+            ClassList classlist = courses[name];
+            int[] classTime = classlist[classlist.getCount()].getTime();
+            if (!classlist.endOfList()) //Might be unnecessary if I'm calling this outside
             {
-                if (modifier == "start")
-                {
-                    classTimes[i] = courses[name][i].getStart();
-                }
-                else
-                {
-                    classTimes[i] = courses[name][i].getEnd();
-                }
+                classlist.incCount();
             }
-            return classTimes;
+
+            return classTime;
+            //int[] classTimes = new int[courses[name].Count()];
+            //for (int i = 0; i < courses[name].Count(); i++)
+            //{
+            //    if (modifier == "start")
+            //    {
+            //        classTimes[i] = courses[name][i].getStart();
+            //    }
+            //    else
+            //    {
+            //        classTimes[i] = courses[name][i].getEnd();
+            //    }
+            //}
+            //return classTimes;
+        }
+
+        public string getDays(string name)
+        {
+            ClassList classlist = courses[name];
+            return classlist[classlist.getCount()].getDays();
         }
     }
 }
