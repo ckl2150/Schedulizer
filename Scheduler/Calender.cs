@@ -42,12 +42,12 @@ namespace Scheduler
         public bool hasConflict(int start, int end, string days)
         {
             bool conflict = false;
-            int dayDiff = end - start;
+            int timeDiff = end - start;
             int[] day = convertDay2Num(days);
 
             foreach (int j in day)
             {
-                for (int i = start; i < start + dayDiff; i++)
+                for (int i = start * 2 - 16; i < start * 2 - 16 + timeDiff * 2; i++)
                 {
                     if (planner[i, j])
                     {

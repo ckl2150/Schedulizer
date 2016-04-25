@@ -6,6 +6,7 @@ namespace Scheduler
 	public class ClassList : List<Class> {
         
         private int counter;
+        private bool slotfilled = false;
         
 		public ClassList() {
             counter = 0;
@@ -21,9 +22,24 @@ namespace Scheduler
             counter++;
         }
 
+        public void resetCount()
+        {
+            counter = 0;
+        }
+
         public bool endOfList()
         {
-            return counter == Count - 1;
+            return counter == Count;
+        }
+
+        public void setFilledSlot(bool condition)
+        {
+            slotfilled = condition;
+        }
+
+        public bool filledSlot()
+        {
+            return slotfilled;
         }
 	}
 }

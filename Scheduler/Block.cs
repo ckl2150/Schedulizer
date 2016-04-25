@@ -11,12 +11,16 @@ namespace Scheduler
         //Instance variables
         private string type;
         private Dictionary<string, ClassList> courses;
+        private bool valid;
+        private int numofclasses;
 
         //Constructor takes a type as a parameter; this specifies whether the objects within are of type lecture, discussion, or lab
         public Block(string coursetype)
         {
             type = coursetype;
             courses = new Dictionary<string, ClassList>();
+            valid = true;
+            numofclasses = 0;
         }
 
         //Method which adds new class to dictionary. Makes new key/value pairing if it does not already exist, and adds the class to the existing list.
@@ -30,14 +34,28 @@ namespace Scheduler
             {
                 courses.Add(name, new ClassList());
                 courses[name].Add(new Class(name, classtype, start, end, ccode, profname, schedday, classroom, roomno));
+                numofclasses++;
             }
         }
 
-        //Retrieves the keys which exist in the dictionary, and returns them as an array
-        public string[] getCourseNames()
+        ///LEAVE ALONE FOR NOW
+        ////Retrieves the keys which exist in the dictionary, and returns them as an array
+        //public string[] getCourseNames()
+        //{
+        //    string[] keys = courses.Keys.ToArray();
+        //    return keys;
+        //}
+
+        public ClassList[] getClassObjects()
         {
-            string[] keys = courses.Keys.ToArray();
-            return keys;
+            ClassList[] values = courses.Values.ToArray();
+            return values;
+        }
+
+        //Retrieves number of unique classes in this block to the caller
+        public int getNumOfClasses()
+        {
+            return numofclasses;
         }
 
         //Returns either the start or end times of a class as an integer array, given the proper string modifier
@@ -71,6 +89,16 @@ namespace Scheduler
         {
             ClassList classlist = courses[name];
             return classlist[classlist.getCount()].getDays();
+        }
+
+        public bool isValid()
+        {
+            return valid;
+        }
+
+        public void setValid(bool condition)
+        {
+            valid = condition;
         }
     }
 }
